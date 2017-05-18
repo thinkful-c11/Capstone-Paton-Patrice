@@ -36,9 +36,7 @@ if ($('#selectorId').val() === "name"){
 function renderAbility(state, element){
 	const abilityHTML = state.results.abilities.map(function(obj){
 		return `
-				<ul>
-					<li>${obj.ability.name}</li>
-				</ul>
+				<li>${obj.ability.name}</li>
 				`
 	});
 	element.html(abilityHTML);
@@ -47,9 +45,8 @@ function renderAbility(state, element){
 function renderPoke(state, element){
 	const nameHTML = state.results.pokemon.map(function(obj){
 		return `
-		ul>
 			<li>${obj.pokemon.name}</li>
-		</ul>`
+			`
 	});
 	element.html(nameHTML);
 }
