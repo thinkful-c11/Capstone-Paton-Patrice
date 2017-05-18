@@ -19,20 +19,17 @@ function getData(searchTerm) {
 const query = searchTerm;
 
 if ($('#selectorId').val() === "name"){
-	
+
 	$.getJSON(pokeApiUrl+"pokemon/"+query+"/", function(data){
 		addResults(appState, data);
 		renderAbility(appState, $('.results'));
 		});
-} else {
-
-}
-// $.getJSON(pokeApiUrl+query+"/", function(data){
-// 	//console.log(data);
-// 	addResults(appState, data);
-// 	//console.log(appState);
-// 	renderPoke(appState, $('.results'));
-// });
+	} else {
+	 $.getJSON(pokeApiUrl+"ability/"+query+"/", function(data){
+	 	addResults(appState, data);
+		renderPoke(appState, $('.results'));
+	 });
+	}
 }
 
 //render functions
@@ -45,6 +42,16 @@ function renderAbility(state, element){
 				`
 	});
 	element.html(abilityHTML);
+}
+
+function renderPoke(state, element){
+	const nameHTML = state.results.pokemon.map(function(obj){
+		return `
+		ul>
+			<li>${obj.pokemon.name}</li>
+		</ul>`
+	});
+	element.html(nameHTML);
 }
 //event
 	$(function watchSubmit(){
