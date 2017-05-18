@@ -18,20 +18,22 @@ const pokeApiUrl = 'http://pokeapi.co/api/v2/pokemon/';
 function getData(searchTerm) {
 const query = searchTerm;
 $.getJSON(pokeApiUrl+query+"/", function(data){
+	//console.log(data);
 	addResults(appState, data);
+	//console.log(appState);
 	renderAbility(appState, $('.results'));
 });
 }
 
 //render functions
 function renderAbility(state, element){
-	const abilityHTML = state.results.abilities.ability.map(function(obj){
+	const abilityHTML = state.results.abilities.map(function(obj){
 		return `
 				<ul>
-					<li>${obj}</li>
+					<li>${obj.ability.name}</li>
 				</ul>
 				`
 	});
 	element.html(abilityHTML);
 }
-//event 
+//event
