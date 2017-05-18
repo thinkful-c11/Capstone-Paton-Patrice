@@ -13,13 +13,11 @@ function addTeam(state, element){
 	state.pokeTeam.push(element);
 }
 //callback and AJAX
-const pokeApiUrl = 'http http://pokeapi/api/v2/';
+const pokeApiUrl = 'http://pokeapi.co/api/v2/pokemon/';
 
 function getData(searchTerm) {
-const query = {
-	q: searchTerm,
-}
-$.getJSON(pokeApiUrl, query, function(data){
+const query = searchTerm;
+$.getJSON(pokeApiUrl+query, function(data){
 	addResults(appState, data);
 });
 }
