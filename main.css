@@ -1,0 +1,18 @@
+#expand {
+  height: 0px;
+  overflow: hidden;
+  transition: height 0.5s;
+}
+
+#toggle:checked ~ #expand {
+  height: 250px;
+}
+
+#toggle:checked ~ label::before {
+  content: "-";
+}
+
+/*label::before {
+	content: url("pokeball.jpg");
+	display: inline-block;
+}*/

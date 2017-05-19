@@ -16,7 +16,7 @@ function addTeam(state, element){
 const pokeApiUrl = 'http://pokeapi.co/api/v2/';
 
 function getData(searchTerm) {
-const query = searchTerm;
+const query = searchTerm.toLowerCase();
 
 if ($('#selectorId').val() === "name"){
 
@@ -36,19 +36,34 @@ if ($('#selectorId').val() === "name"){
 function renderAbility(state, element){
 	const abilityHTML = state.results.abilities.map(function(obj){
 		return `
-				<li>${obj.ability.name}</li>
+				<div class="row>
+					<div class="col-12">${obj.ability.name}</div>
+				</div>
 				`
 	});
 	element.html(abilityHTML);
 }
 
 function renderPoke(state, element){
+
 	const nameHTML = state.results.pokemon.map(function(obj){
 		return `
-			<li>${obj.pokemon.name}</li>
+			<div class="row">
+				<div class="col-12">
+					<input id="toggle" type="checkbox">
+					<label for="toggle">${obj.pokemon.name}</label> 
+					
+					<div id="expand">
+						<section>
+							<p>${obj.pokemon.url}</p>
+						</section>
+					</div>
+				</div>
+			</div>
 			`
 	});
 	element.html(nameHTML);
+
 }
 //event
 	$(function watchSubmit(){
@@ -58,3 +73,6 @@ function renderPoke(state, element){
 		getData(query);
 	});
 });
+
+
+//add no results error
