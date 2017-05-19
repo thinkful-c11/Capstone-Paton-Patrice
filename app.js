@@ -33,20 +33,21 @@ if ($('#selectorId').val() === "name"){
 	}
 }
 
-function getDetails(searchTerm){
+function getPDetails(searchTerm){
 	const query = searchTerm.toLowerCase();
 
-//if(){
 	$.getJSON(pokeApiUrl+"pokemon/"+query+"/", function(data){
 		addResults(appState, data);
 		renderAbility(appState, $('.results'));
 		});
-	// } else {
-	//  $.getJSON(pokeApiUrl+"ability/"+query+"/", function(data){
-	//  	addResults(appState, data);
-	// 	renderPoke(appState, $('.results'));
-	//  });
-	// }
+}
+
+function getADetails(searchTerm){
+	const query = searchTerm.toLowerCase();
+	 $.getJSON(pokeApiUrl+"ability/"+query+"/", function(data){
+	 	addResults(appState, data);
+		renderPoke(appState, $('.results'));
+	 });
 }
 
 //render functions
@@ -55,7 +56,7 @@ function renderAbility(state, element){
 		return `
 				<div class="row>
 					<div class="col-12">
-						<label for="toggle">${obj.ability.name}</label>
+						<button class="ability-deets" type="button" name="ability" value="${obj.ability.name}">${obj.ability.name}</button>
 						<div id="expand">
 							<section>
 								<p>"search worked"</p>
@@ -77,7 +78,7 @@ function renderPoke(state, element){
 		 return `
 			<div class="row">
 				<div class="col-12">
-					<button class="deets" type="button" name="button" value="${obj.pokemon.name}">${obj.pokemon.name}</button>
+					<button class="deets" type="button" name="name" value="${obj.pokemon.name}">${obj.pokemon.name}</button>
 					<div id="expand">
 						<section>
 							<p>${obj.pokemon.url}</p>
@@ -90,6 +91,7 @@ function renderPoke(state, element){
 	element.html(nameHTML);
 
 }
+
 //event
 	$(function watchSubmit(){
 	$('.js-search-form').submit(function(event){
@@ -105,8 +107,16 @@ function renderPoke(state, element){
 		console.log("hello world");
 		const query = $(event.currentTarget).val();
 		console.log(query);
-		getDetails(query);
-	})
+		getPDetails(query);
+	});
+
+	$('.results').on("click", ".ability-deets", function(event){
+		event.preventDefault();
+		console.log("hello world");
+		const query = $(event.currentTarget).val();
+		console.log(query);
+		getADetails(query);
+	});
 
 });
 
