@@ -38,7 +38,7 @@ function getPDetails(searchTerm){
 
 	$.getJSON(pokeApiUrl+"pokemon/"+query+"/", function(data){
 		addResults(appState, data);
-		renderAbility(appState, $('.results'));
+		renderPokemonDetails(appState, $('.results'));
 		});
 }
 
@@ -72,25 +72,51 @@ function renderAbility(state, element){
 function renderPoke(state, element){
 
 	const nameHTML = state.results.pokemon.map(function(obj){
-		// if (state.selectedPokemon.name === obj.name) {
-		//
-		// }
 		 return `
-			<div class="row">
 				<div class="col-12">
 					<button class="deets" type="button" name="name" value="${obj.pokemon.name}">${obj.pokemon.name}</button>
-					<div id="expand">
-						<section>
-							<p>${obj.pokemon.url}</p>
-						</section>
-					</div>
 				</div>
-			</div>
 			`
 	});
-	element.html(nameHTML);
+
+	const abilityDetails = state.results.effect_entries.map(function(obj){
+		return `
+		Effect: ${obj.effect}
+		`
+	});
+
+	element.html(`
+			<h3>${state.results.name}</h3>
+			<p>${abilityDetails}</p>
+			<div class="row">${nameHTML.join("")}</div>`);
 
 }
+
+function renderPokemonDetails(state, element){
+	const pokeAbility = state.results.abilities.map(function(obj){
+		return `<button class="ability-deets" type="button" name="ability" value="${obj.ability.name}">${obj.ability.name}</button>`	
+	});
+
+	const pokeStats = state.results.stats.map(function(obj){
+		return `
+			<p>${obj.stat.name}: ${obj.base_stat}</p>
+			`
+	});
+
+	element.html( `
+		<div class="row">
+				<div class="col-12">
+					<p>Name: ${state.results.name}</p>
+					<img src="${state.results.sprites.front_default}">
+					<p>PokeDex Id Number: ${state.results.id}
+					<p>Abilities</p>
+					<div>${pokeAbility.join("")}</div>
+					<p><u>Stats</u></p>
+					<p>${pokeStats.join("")}</p>
+				</div>
+			</div>
+	`);
+	}
 
 //event
 	$(function watchSubmit(){
@@ -104,15 +130,12 @@ function renderPoke(state, element){
 
 	$('.results').on("click", ".deets", function(event){
 		event.preventDefault();
-		console.log("hello world");
 		const query = $(event.currentTarget).val();
-		console.log(query);
 		getPDetails(query);
 	});
 
 	$('.results').on("click", ".ability-deets", function(event){
 		event.preventDefault();
-		console.log("hello world");
 		const query = $(event.currentTarget).val();
 		console.log(query);
 		getADetails(query);
