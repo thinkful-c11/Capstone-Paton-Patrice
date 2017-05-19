@@ -12,6 +12,7 @@ Stories
 As a user I can search pokemon by name
 As a user I can search pokemon by ability
 As a user I must be able to generate a list of pokemon with desired ability
+As a user I must be able to generate a list of abilities for the desired pokemon
 As a user I can click on result to show details about pokemon
 Reach
 Add pics for pokemon
