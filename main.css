@@ -21,9 +21,7 @@ nav img {
 }
 
 body {
-  /*background-image: url("background.jpg");
-  background-repeat:no-repeat;*/
-  /*background-color: white;*/
+  background: red;
   margin: 0;
   display: inline-block;
   font-family: 'Bangers', cursive;
@@ -39,6 +37,11 @@ legend {
 }
 
 .js-search-form {
+  text-align: center;
+}
+
+.results {
+  margin-top: 30px;
   text-align: center;
 }
 

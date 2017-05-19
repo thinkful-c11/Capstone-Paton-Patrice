@@ -54,19 +54,17 @@ function getADetails(searchTerm){
 function renderAbility(state, element){
 	const abilityHTML = state.results.abilities.map(function(obj){
 		return `
-				<div class="row>
-					<div class="col-12">
 						<button class="ability-deets" type="button" name="ability" value="${obj.ability.name}">${obj.ability.name}</button>
-						<div id="expand">
-							<section>
-								<p>"search worked"</p>
-							</section>
-						</div>
-					</div>
-				</div>
 				`
 	});
-	element.html(abilityHTML);
+	element.html(`
+			<div class="row>
+				<div class="col-12">
+					<h3>Abilities</h3>
+					${abilityHTML}
+				</div>
+			</div>
+			`);
 }
 
 function renderPoke(state, element){
@@ -88,13 +86,14 @@ function renderPoke(state, element){
 	element.html(`
 			<h3>${state.results.name}</h3>
 			<p>${abilityDetails}</p>
+			<p><u>Pokemon with ${state.results.name}</u></p>
 			<div class="row">${nameHTML.join("")}</div>`);
 
 }
 
 function renderPokemonDetails(state, element){
 	const pokeAbility = state.results.abilities.map(function(obj){
-		return `<button class="ability-deets" type="button" name="ability" value="${obj.ability.name}">${obj.ability.name}</button>`	
+		return `<button class="ability-deets" type="button" name="ability" value="${obj.ability.name}">${obj.ability.name}</button>`
 	});
 
 	const pokeStats = state.results.stats.map(function(obj){
@@ -109,7 +108,7 @@ function renderPokemonDetails(state, element){
 					<p>Name: ${state.results.name}</p>
 					<img src="${state.results.sprites.front_default}">
 					<p>PokeDex Id Number: ${state.results.id}
-					<p>Abilities</p>
+					<p><u>Abilities</u></p>
 					<div>${pokeAbility.join("")}</div>
 					<p><u>Stats</u></p>
 					<p>${pokeStats.join("")}</p>
