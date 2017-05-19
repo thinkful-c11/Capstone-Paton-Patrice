@@ -45,6 +45,11 @@ legend {
   text-align: center;
 }
 
+button {
+  font-family: 'Bangers', cursive;
+  font-size: 20px;
+}
+
 /*label::before {
 	content: url("pokeball.jpg");
 	display: inline-block;
