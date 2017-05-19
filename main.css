@@ -12,6 +12,36 @@
   content: "-";
 }
 
+nav img {
+  width:100%;
+  height:auto;
+  margin:0;
+  padding: 0;
+  /*position: fixed;*/
+}
+
+body {
+  /*background-image: url("background.jpg");
+  background-repeat:no-repeat;*/
+  /*background-color: white;*/
+  margin: 0;
+  display: inline-block;
+  font-family: 'Bangers', cursive;
+}
+
+h1 {
+  text-align: center;
+}
+
+legend {
+  text-align:center;
+  font-size: 20px;
+}
+
+.js-search-form {
+  text-align: center;
+}
+
 /*label::before {
 	content: url("pokeball.jpg");
 	display: inline-block;

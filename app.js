@@ -37,7 +37,15 @@ function renderAbility(state, element){
 	const abilityHTML = state.results.abilities.map(function(obj){
 		return `
 				<div class="row>
-					<div class="col-12">${obj.ability.name}</div>
+					<div class="col-12">
+						<input id="toggle" type="checkbox">
+						<label for="toggle">${obj.ability.name}</label>
+						<div id="expand">
+							<section>
+								<p>${obj.pokemon.url}</p>
+							</section>
+						</div>
+					</div>
 				</div>
 				`
 	});
@@ -47,12 +55,14 @@ function renderAbility(state, element){
 function renderPoke(state, element){
 
 	const nameHTML = state.results.pokemon.map(function(obj){
-		return `
+		// if (state.selectedPokemon.name === obj.name) {
+		//
+		// }
+		 return `
 			<div class="row">
 				<div class="col-12">
 					<input id="toggle" type="checkbox">
-					<label for="toggle">${obj.pokemon.name}</label> 
-					
+					<label for="toggle">${obj.pokemon.name}</label>
 					<div id="expand">
 						<section>
 							<p>${obj.pokemon.url}</p>
@@ -72,7 +82,10 @@ function renderPoke(state, element){
 		const query = $('.js-query').val();
 		getData(query);
 	});
+
+	//listeners on check/button
 });
 
-
+//do css
 //add no results error
+//change input to button
