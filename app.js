@@ -2,6 +2,7 @@
 appState = {
 	results: [],
 	pokeTeam: [],
+	details: []
 };
 
 //mod function
@@ -32,17 +33,32 @@ if ($('#selectorId').val() === "name"){
 	}
 }
 
+function getDetails(searchTerm){
+	const query = searchTerm.toLowerCase();
+
+//if(){
+	$.getJSON(pokeApiUrl+"pokemon/"+query+"/", function(data){
+		addResults(appState, data);
+		renderAbility(appState, $('.results'));
+		});
+	// } else {
+	//  $.getJSON(pokeApiUrl+"ability/"+query+"/", function(data){
+	//  	addResults(appState, data);
+	// 	renderPoke(appState, $('.results'));
+	//  });
+	// }
+}
+
 //render functions
 function renderAbility(state, element){
 	const abilityHTML = state.results.abilities.map(function(obj){
 		return `
 				<div class="row>
 					<div class="col-12">
-						<input id="toggle" type="checkbox">
 						<label for="toggle">${obj.ability.name}</label>
 						<div id="expand">
 							<section>
-								<p>${obj.pokemon.url}</p>
+								<p>"search worked"</p>
 							</section>
 						</div>
 					</div>
@@ -61,8 +77,7 @@ function renderPoke(state, element){
 		 return `
 			<div class="row">
 				<div class="col-12">
-					<input id="toggle" type="checkbox">
-					<label for="toggle">${obj.pokemon.name}</label>
+					<button class="deets" type="button" name="button" value="${obj.pokemon.name}">${obj.pokemon.name}</button>
 					<div id="expand">
 						<section>
 							<p>${obj.pokemon.url}</p>
@@ -84,6 +99,15 @@ function renderPoke(state, element){
 	});
 
 	//listeners on check/button
+
+	$('.results').on("click", ".deets", function(event){
+		event.preventDefault();
+		console.log("hello world");
+		const query = $(event.currentTarget).val();
+		console.log(query);
+		getDetails(query);
+	})
+
 });
 
 //do css
