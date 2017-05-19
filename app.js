@@ -84,7 +84,7 @@ function renderPoke(state, element){
 	});
 
 	element.html(`
-			<h2>${state.results.name}</h2>
+			<h2><u>${state.results.name}</u></h2>
 			<p>${abilityDetails}</p>
 			<p><u>Pokemon with ${state.results.name}</u></p>
 			<div class="row">${nameHTML.join("")}</div>`);
