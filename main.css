@@ -1,15 +1,6 @@
-#expand {
-  height: 0px;
-  overflow: hidden;
-  transition: height 0.5s;
-}
-
-#toggle:checked ~ #expand {
-  height: 250px;
-}
-
-#toggle:checked ~ label::before {
-  content: "-";
+.container {
+  margin: 0 auto;
+  width: 1280px;
 }
 
 nav img {
@@ -23,6 +14,7 @@ nav img {
 body {
   background: red;
   margin: 0;
+  width: 100%;
   display: inline-block;
   font-family: 'Bangers', cursive;
 }

@@ -1,3 +1,5 @@
+'use strict';
+
 //state object
 const appState = {
   results: [],
@@ -16,38 +18,42 @@ function addTeam(state, element){
 //callback and AJAX
 const pokeApiUrl = 'https://pokeapi.co/api/v2/';
 
-function getData(searchTerm) {
+function getData(searchTerm, callback) {
   const query = searchTerm.toLowerCase();
 
   if ($('#selectorId').val() === 'name'){
 
     $.getJSON(pokeApiUrl+'pokemon/'+query+'/', function(data){
       addResults(appState, data);
-      renderAbility(appState, $('.results'));
+      callback();
+      //renderAbility(appState, $('.results'));
     });
   } else {
-	 $.getJSON(pokeApiUrl+'ability/'+query+'/', function(data){
-	 	addResults(appState, data);
-   renderPoke(appState, $('.results'));
-	 });
+    $.getJSON(pokeApiUrl+'ability/'+query+'/', function(data){
+      addResults(appState, data);
+      callback();
+   //renderPoke(appState, $('.results'));
+    });
   }
 }
 
-function getPDetails(searchTerm){
+function getPokemonDetails(searchTerm, callback){
   const query = searchTerm.toLowerCase();
 
   $.getJSON(pokeApiUrl+'pokemon/'+query+'/', function(data){
     addResults(appState, data);
-    renderPokemonDetails(appState, $('.results'));
+    callback();
+    //renderPokemonDetails(appState, $('.results'));
   });
 }
 
-function getADetails(searchTerm){
+function getAbilityDetails(searchTerm, callback){
   const query = searchTerm.toLowerCase();
-	 $.getJSON(pokeApiUrl+'ability/'+query+'/', function(data){
-	 	addResults(appState, data);
-   renderPoke(appState, $('.results'));
-	 });
+  $.getJSON(pokeApiUrl+'ability/'+query+'/', function(data){
+    addResults(appState, data);
+    callback();
+    //renderPoke(appState, $('.results'));
+  });
 }
 
 //render functions
@@ -70,7 +76,7 @@ function renderAbility(state, element){
 function renderPoke(state, element){
 
   const nameHTML = state.results.pokemon.map(function(obj){
-		 return `
+    return `
 				<div class="col-12">
 					<button class="deets" type="button" name="name" value="${obj.pokemon.name}">${obj.pokemon.name}</button>
 				</div>
@@ -122,7 +128,10 @@ $(function watchSubmit(){
   $('.js-search-form').submit(function(event){
     event.preventDefault();
     const query = $('.js-query').val();
-    getData(query);
+    getData(query, function() {
+      renderAbility(appState, $('.results'));
+      renderPoke(appState, $('.results'));
+    });
   });
 
 	//listeners on check/button
@@ -130,14 +139,18 @@ $(function watchSubmit(){
   $('.results').on('click', '.deets', function(event){
     event.preventDefault();
     const query = $(event.currentTarget).val();
-    getPDetails(query);
+    getPokemonDetails(query, function (){
+      renderPokemonDetails(appState, $('.results'));
+    });
   });
 
   $('.results').on('click', '.ability-deets', function(event){
     event.preventDefault();
     const query = $(event.currentTarget).val();
     console.log(query);
-    getADetails(query);
+    getAbilityDetails(query, function(){
+      renderPoke(appState, $('.results'));
+    });
   });
 
 });
