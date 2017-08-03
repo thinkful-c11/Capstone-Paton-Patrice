@@ -58,6 +58,10 @@ function getAbilityDetails(searchTerm, callback){
 
 //render functions
 function renderAbility(state, element){
+  if(!state.results.abilities){
+    return;
+  }else{
+
   const abilityHTML = state.results.abilities.map(function(obj){
     return `
 						<button class="ability-deets" type="button" name="ability" value="${obj.ability.name}">${obj.ability.name}</button>
@@ -71,10 +75,13 @@ function renderAbility(state, element){
 				</div>
 			</div>
 			`);
+  }
 }
 
 function renderPoke(state, element){
-
+  if(!state.results.pokemon){
+    return;
+  }else{
   const nameHTML = state.results.pokemon.map(function(obj){
     return `
 				<div class="col-12">
@@ -94,7 +101,7 @@ function renderPoke(state, element){
 			<p>${abilityDetails}</p>
 			<p><u>Pokemon with ${state.results.name}</u></p>
 			<div class="row">${nameHTML.join('')}</div>`);
-
+  }
 }
 
 function renderPokemonDetails(state, element){
